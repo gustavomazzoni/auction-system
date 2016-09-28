@@ -3,31 +3,41 @@
 Realtime app built with Angular & Node (and socket.io).
 
 ## Key resolutions:
+- socket.js
 
-* GamaManager (game.service) - why to use it instead of the Controller?
-Because of the interaction with socket.io. To keep the controllers thin, I have only placed what I want to expose in the scope and routing.
+    I've chose to use socket.io because of its large community, created by a strong company and because it handles perfectly the real-time communication with the server choosing the best protocol available and providing features like automatic reconnection.
 
-* Why GameManager is setted in scope?
-So the changes in its datas reflected in the scope components.
+- real-time (socket.io) - websocket vs http
 
-* logout process
-I have created a reusable process where it's only necessary to go to the logout state.
+    I've decided to go only with socket.io choosing the best protocol available. Since we needed a real-time app, I used socket.io to communicate with the server emiting requests for operations and also listening for data changes.
+    
+### Server side (Node)
+- Assyncronous and parallel process ('async' lib)
 
-* socket.js
-I've chose to use socket.io because of its large community, created by a strong company and because it handles perfectly the real-time communication with the server choosing the best protocol available and providing features like automatic reconnection.
+    I've used async library to handle parallel process with a single callback.
 
-* models Classes ('async' lib)
-I've used asyng library to handle parallel process with a single callback.
+- User table / login process ('socketio-auth' lib)
 
-* User table / login process ('socketio-auth' lib)
-I've not created a User model class so it will only be used inside socketio-auth process. socketio-auth library was used to handle socket.io authentication.
+    I've not created a User model class so it will only be used inside socketio-auth process. socketio-auth library was used to handle socket.io authentication.
+    
+### Client side (angular)
+- GamaManager (game.service) - why to use it instead of the Controller?
+    
+    Because of the interaction with socket.io. To keep the controllers thin, I have only placed what I want to expose in the scope and routing.
 
-* real-time (socket.io) - websocket vs http
-I've decided to go only with socket.io choosing the best protocol available. Since we needed a real-time app, I used socket.io to communicate with the server emiting requests for operations and also listening for data changes.
+- Why GameManager is setted in scope?
+    
+    So the changes in its datas reflected in the scope components.
 
-* responsive layout (side nav for mobile) and material design 'flex'
-I've used Angular Material layout features like flex (CSS3 flexbox) to create responsive layouts.
+- logout process
 
-* factory vs service
-I use service to keep object state. Factory for a stateless object.
+    I have created a reusable process where it's only necessary to go to the logout state.
+
+- responsive layout (side nav for mobile) and material design 'flex'
+
+    I've used Angular Material layout features like flex (CSS3 flexbox) to create responsive layouts.
+
+- factory vs service
+
+    I use service to keep object state. Factory for a stateless object.
 
