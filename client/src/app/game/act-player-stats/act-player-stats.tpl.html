@@ -1,0 +1,13 @@
+<div flex>
+  <md-toolbar>
+    <h2 class="md-toolbar-tools"><span>Player Stats</span></h2>
+  </md-toolbar>
+  <md-content layout-margin layout="column">
+  	<div flex layout="row" layout-align="start center">
+  		<h2>{{player.username}}</h2>
+  		<span flex></span>
+      <md-button class="md-primary" ng-click="logout()" aria-label="Logout">Leave</md-button>
+  	</div>
+    <p><label>Coins: </label>{{player.coins}}</p>
+  </md-content>
+</div>

@@ -1,0 +1,12 @@
+<div flex>
+  <md-toolbar>
+    <h2 class="md-toolbar-tools"><span>Inventory</span></h2>
+  </md-toolbar>
+  <md-content>
+    <md-list>
+      <act-inventory-list-item item="item" on-start-auction="startAuction" ng-repeat="item in inventoryList">
+        <md-divider ng-if="!$last"></md-divider>
+  		</act-inventory-list-item>
+    </md-list>
+  </md-content>
+</div>

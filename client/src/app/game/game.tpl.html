@@ -1,0 +1,20 @@
+<md-toolbar class="header" layout="row">
+  <md-button class="menu" hide-gt-sm ng-click="vm.toggleSide()" aria-label="Toggle Side Widgets">
+    <md-icon md-font-library="material-icons" alt="Side Widgets">menu</md-icon>
+  </md-button>
+  <h1 flex class="app-name"><span>{{appName}}</span></h1>
+</md-toolbar>
+
+<div flex layout="row" layout-fill>
+  <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" 
+    class="md-whiteframe-z2">
+    <act-player-stats player="vm.game.player" on-logout="vm.logout"></act-player-stats>
+    <act-inventory-list inventory-list="vm.game.inventory" on-start-auction="vm.startAuction"></act-inventory-list>
+  </md-sidenav>
+
+  <md-content flex>
+    <act-current auction="vm.game.auction" on-place-bid="vm.placeBid" is-seller="vm.game.isSeller()"></act-current>
+    <act-winner winner="vm.game.winner" ng-if="vm.game.winner"></act-winner>
+  </md-content>
+  <toast-notification message="vm.game.message"></toast-notification>
+</div>

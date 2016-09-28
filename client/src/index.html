@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app="auction" ng-controller="AppCtrl">
+  <head>
+    <title ng-bind="pageTitle"></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  </head>
+  <body layout="column" ng-cloak>
+
+    <md-content flex id="content" ui-view></md-content>
+
+    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script><% }); %>
+  </body>
+</html>

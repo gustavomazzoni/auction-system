@@ -1,0 +1,13 @@
+<md-list-item class="md-2-line">
+  <img ng-src="{{item.item.avatar}}" class="md-avatar" alt="{{item.item.name}}"
+       ng-if="item.item.avatar"/>
+  <div class="md-list-item-text">
+    <h3>{{item.item.name}}</h3>
+    <p><label>Quantity: </label> {{item.quantity}}</p>
+  </div>
+  <md-button class="md-secondary md-icon-button" ng-click="openDialog($event)" 
+    aria-label="Start Auction">
+    <md-icon md-font-library="material-icons">play_arrow</md-icon>
+  </md-button>
+</md-list-item>
+<div ng-transclude></div>

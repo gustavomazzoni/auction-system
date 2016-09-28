@@ -1,0 +1,31 @@
+<md-dialog flex="25" flex-sm="50" flex-xs="100" aria-label="Start Auction" layout="column" ng-cloak>
+  <form name="dialogForm" ng-submit="vm.answer(vm.auction)" layout="column" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Set the values for the Auction</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content flex layout="column" class="md-margin md-padding">
+      <md-input-container>
+        <label>Item</label>
+        <input ng-model="vm.auction.item.name" disabled>
+      </md-input-container>
+    	<md-input-container>
+				<label>Quantity</label>
+				<input ng-model="vm.auction.quantity" min="1" max="{{vm.max}}" required type="number">
+			</md-input-container>
+			<md-input-container>
+				<label>Minimum Bid</label>
+				<input ng-model="vm.auction.minimumBid" min="1" required type="number">
+			</md-input-container>
+  	</md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button type="submit" ng-disabled="dialogForm.$invalid" class="md-raised md-primary">
+       Start Auction
+      </md-button>
+      <md-button ng-click="vm.cancel()">
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,17 @@
+<div layout="row" layout-align="center center" layout-fill>
+  <form flex="30" flex-sm="70" flex-xs="100" aria-label="Login Form" layout="column" class="md-whiteframe-z1"
+    name="loginForm" ng-submit="vm.login(vm.credentials)" novalidate>
+    <md-toolbar>
+      <h2 class="md-toolbar-tools"><span>Enter your name to log in</span></h2>
+    </md-toolbar>
+    <md-content layout="column" class="md-padding">
+    	<md-input-container>
+    		<label>Username</label>
+    		<input ng-model="vm.credentials.username" required>
+    	</md-input-container>
+    	<md-input-container layout="row">
+    		<md-button type="submit" ng-disabled="loginForm.$invalid" class="md-raised md-primary" flex="100">Login</md-button>
+    	</md-input-container>
+    </md-content>
+  </form>
+</div>

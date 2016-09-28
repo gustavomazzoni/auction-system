@@ -1,0 +1,181 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../server'),
+    http = require('http'),
+    db = require('../lib/db'),
+    Player = require('../models/Player'),
+    PlayerItem = require('../models/PlayerItem');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Socket.io Communication
+ */
+// Attach Socket.io to http.Server instance
+var io = require('socket.io')(server);
+// Setup authentication for the socket.io connections
+require('socketio-auth')(io, {
+  authenticate: function (socket, data, callback) {
+    //get credentials sent by the client
+    var username = data.username;
+    
+    // check if user already exists otherwise create it in db
+    db.getPoolConnection(function(connection) {
+      connection.query('SELECT * FROM users WHERE username = ?', [username], function(err, results) {
+        //inform the callback of auth success/failure
+        if (err) return callback(new Error('Unexpected error when querying for User'));
+        
+        if (!results || results.length === 0) {
+          // if user not found
+          
+          // create new user
+          connection.query('INSERT INTO users SET ?', {username: username}, function(error, result) {
+            if (error) return callback(new Error('Unexpected error when inserting User'));
+
+            // And done with the connection.
+            connection.release();
+            return callback(null, {username: username});
+          });
+        } else {
+          // user already exists
+          // And done with the connection.
+          connection.release();
+          return callback(null, results[0]);
+        }
+      });
+    });
+  },
+  postAuthenticate: function(socket, data) {
+    var username = data.username;
+    
+    // Store the username in the socket session for this client
+    socket.username = username;
+
+    // fetch player datas
+    // check if player exists
+    Player.find(username, function(result) {
+      if (result) {
+        // if exists
+        var player = result;
+
+        // check if player inventory exists
+        PlayerItem.findAll(username, function(results) {
+          if (results && results.length > 0) {
+            player.inventory = results;
+            // send to the user his player datas
+            socket.emit('player:init', {
+              message: 'Welcome '+username,
+              player: player
+            });
+          } else {
+            // if not
+            // insert inventory list
+            PlayerItem.init(player, function(player) {
+              // send to the user his player datas
+              socket.emit('player:init', {
+                message: 'Welcome '+username,
+                player: player
+              });
+            });
+          }
+        });
+      } else {
+        // if not
+        // create player and inventory list
+        Player.init(username, function(player) {
+          // send to the user his player datas
+          socket.emit('player:init', {
+            message: 'Welcome '+username,
+            player: player
+          });
+        });
+      }
+    });
+
+    // Socket.io Pub/Sub after user is authenticated
+    require('../routes/socket.js')(io, socket);
+  }
+});
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  console.log('Listening on ' + bind);
+}

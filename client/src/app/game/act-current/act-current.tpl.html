@@ -1,0 +1,58 @@
+<md-toolbar layout="row">
+  <h2 class="md-toolbar-tools"><span>Current Auction</span></h2>
+</md-toolbar>
+<md-content layout="column" layout-padding ng-if="auction">
+  <div layout="row">
+    <label>Seller: </label> <span class="seller-name">{{auction.seller.username}}</span>
+  </div>
+  <div layout="row">
+    <md-card flex flex-gt-sm="70" flex-gt-md="50">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">{{auction.item.name}}</span>
+          <span class="md-subhead">Quantity: {{auction.quantity}}</span>
+        </md-card-title-text>
+        <md-card-title-media>
+          <div class="md-media-sm card-media">
+            <img ng-src="{{auction.item.avatar}}" class="md-avatar" alt="{{auction.item.name}}"
+              ng-if="auction.item.avatar"/>
+          </div>
+        </md-card-title-media>
+      </md-card-title>
+    </md-card>
+  </div>
+  <div layout="row">
+    <label>Time left: </label> <span class="time">{{auction.timeLeft}} second(s)</span>
+  </div>
+  <div ng-if="!auction.winningBid" layout="row">
+    <label>Minimum bid: </label> <span class="bid">{{auction.minimumBid}} coins</span>
+  </div>
+  <div ng-if="auction.winningBid" layout="row">
+    <label>Winning bid: </label> <span class="bid">{{auction.winningBid.bid}} coins</span>
+  </div>
+  <form ng-if="!isSeller" aria-label="Auction Form" name="auctionForm" ng-submit="placeBid(newBid)" novalidate>
+    <div layout="row">
+      <md-input-container flex flex-gt-sm="50" flex-gt-md="20" class="md-block">
+        <label>Your Bid</label>
+        <input required type="number" name="bid" ng-model="newBid" min="{{getMinimumBid()}}"/>
+        <div ng-messages="auctionForm.bid.$error" multiple md-auto-hide="false">
+          <div ng-message="required">
+            You've got to bid something!
+          </div>
+          <div ng-message="min">
+            You should bid at least {{getMinimumBid()}} coins.
+          </div>
+        </div>
+      </md-input-container>
+    </div>
+    <div layout="row">
+      <md-button type="submit" flex="100" flex-gt-sm="70" flex-gt-md="50" ng-disabled="auctionForm.$invalid" class="md-raised md-primary">Place Bid</md-button>
+    </div>
+  </form>
+</md-content>
+<md-content ng-if="!auction" layout-margin>
+  <md-whiteframe class="md-whiteframe-1dp" flex layout layout-align="center center">
+    <h2><span>No auction at the moment.</span></h2>
+  </md-whiteframe>
+</md-content>
+

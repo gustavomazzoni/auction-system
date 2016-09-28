@@ -1,0 +1,22 @@
+{
+  "author": "Gustavo Mazzoni",
+  "name": "auction-system",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "mocha tests --recursive",
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "async": "^2.0.1",
+    "body-parser": "~1.13.2",
+    "express": "~4.13.1",
+    "mysql": "^2.11.1",
+    "socket.io": "^1.4.8",
+    "socketio-auth": "0.0.5"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
