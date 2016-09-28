@@ -31,8 +31,3 @@ I've used Angular Material layout features like flex (CSS3 flexbox) to create re
 * factory vs service
 I use service to keep object state. Factory for a stateless object.
 
-
-## TODO:
-* exception handling
-* unit test
-
