@@ -1,6 +1,9 @@
+# Auction game app - Realtime app built with Angular & Node
+
+## Key resolutions:
 
 * GamaManager (game.service) - why to use it instead of the Controller?
-Because of the interaction with socket.io. To keep the controllers thin, I have only placed what I want to expose in the scope and routing stuff.
+Because of the interaction with socket.io. To keep the controllers thin, I have only placed what I want to expose in the scope and routing.
 
 * Why GameManager is setted in scope?
 So the changes in its datas reflected in the scope components.
@@ -9,7 +12,7 @@ So the changes in its datas reflected in the scope components.
 I have created a reusable process where it's only necessary to go to the logout state.
 
 * socket.js
-I've choose to use socket.io because of its large community, created by a strong company and because it handles perfectly the real-time communication with the server choosing the best protocol available and providing features like automatic reconnection.
+I've chose to use socket.io because of its large community, created by a strong company and because it handles perfectly the real-time communication with the server choosing the best protocol available and providing features like automatic reconnection.
 
 * models Classes ('async' lib)
 I've used asyng library to handle parallel process with a single callback.
@@ -26,10 +29,8 @@ I've used Angular Material layout features like flex (CSS3 flexbox) to create re
 * factory vs service
 I use service to keep object state. Factory for a stateless object.
 
-* exception handling
 
+## TODO:
+* exception handling
 * unit test
-* controller as 'vm' 
-* client side dependencies: angular-ui, less, jasmine, karma, grunt, bower
-* project folder structure (ngBoilerplate)
 
