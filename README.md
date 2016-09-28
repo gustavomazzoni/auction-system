@@ -1,4 +1,6 @@
-# Auction game app - Realtime app built with Angular & Node
+# Auction game app
+
+Realtime app built with Angular & Node (and socket.io).
 
 ## Key resolutions:
 
