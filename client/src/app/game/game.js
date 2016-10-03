@@ -12,7 +12,7 @@
       'socket',
       'toastNotification'
     ])
-    .constant('SERVER_URL', 'http://localhost:3000')
+    .constant('SERVER_URL', 'http://auctiongame-mazzoni.herokuapp.com')
     .config(config)
     .controller('GameCtrl', GameController);
 
