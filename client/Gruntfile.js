@@ -153,13 +153,13 @@ module.exports = function ( grunt ) {
             dest: '<%= compile_dir %>/assets',
             cwd: '<%= build_dir %>/assets',
             expand: true
-          },
+          /*},
           {
             src: [ '<%= vendor_files.css %>' ],
             dest: '<%= compile_dir %>/',
             cwd: '.',
             expand: true
-          }
+          */}
         ]
       }
     },
@@ -173,6 +173,20 @@ module.exports = function ( grunt ) {
        * together.
        */
       build_css: {
+        src: [
+          '<%= vendor_files.css %>',
+          '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
+        ],
+        dest: '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
+      },
+      /**
+       * The `compile_css` target concatenates compiled CSS and vendor CSS
+       * together to release.
+       */
+      compile_css: {
+        options: {
+          banner: '<%= meta.banner %>'
+        },
         src: [
           '<%= vendor_files.css %>',
           '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
@@ -512,7 +526,7 @@ module.exports = function ( grunt ) {
    * minifying your code.
    */
   grunt.registerTask( 'compile', [
-    'less:compile', 'copy:compile_assets', 'ngAnnotate', 'concat:compile_js', 'uglify', 'index:compile'
+    'less:compile', 'concat:compile_css', 'copy:compile_assets', 'ngAnnotate', 'concat:compile_js', 'uglify', 'index:compile'
   ]);
 
   /**
