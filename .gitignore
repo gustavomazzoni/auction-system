@@ -12,3 +12,6 @@
 
 # Ignore vagrant box and provider configutarion files
 /.vagrant
+
+# Project libraries
+node_modules
