@@ -1,0 +1,13 @@
+{
+  "author": "Gustavo Mazzoni",
+  "name": "auction-game",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "postinstall": "scripts/postinstall.sh",
+    "start": "node server/bin/www"
+  },
+  "engines": {
+    "node": "5.4.1"
+  }
+}
