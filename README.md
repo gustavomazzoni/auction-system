@@ -1,8 +1,11 @@
 # Auction game app
 
-Realtime app built with Angular & Node (and socket.io).
+Realtime app built with Angular & Node & socket.io (and for MySQL database).
 
-## Key resolutions:
+## Solution
+A single-page application was built using [AngularJS](https://angularjs.org/), for the client side, integrated to the Node backend via socket.io to keep clients connected to synchronize in real time every client on any updates.
+
+## Key solutions:
 - socket.js
 
     I've chose to use socket.io because of its large community, created by a strong company and because it handles perfectly the real-time communication with the server choosing the best protocol available and providing features like automatic reconnection.
@@ -41,3 +44,29 @@ Realtime app built with Angular & Node (and socket.io).
 
     I use service to keep object state. Factory for a stateless object.
 
+
+## Running the app
+### Download the project
+Download or clone the project using following command:
+```sh
+$ git clone https://github.com/gustavomazzoni/auction-system
+```
+### Install
+Install MySQL server locally, then run the scripts to setup:
+```sh
+$ cd server/ && ./db-create.sh
+$ ./db-init.sh
+$ ./db-setup.sh
+```
+Install project dependencies
+```sh
+$ npm install
+```
+### Run
+Then start the project
+```sh
+$ npm start
+```
+
+Open on your browser:
+http://localhost:3000/
